@@ -22,6 +22,7 @@ operations:
     guidance:
       - Never start implementation on your own. The owner initiates it.
       - Push code to the change's PR as each piece is finished.
+      - "End implementation with the PR: make sure it's open (open it if it isn't), everything is pushed, and its description is rewritten for review (status, what's in it, what was and wasn't verified). Then give the owner its link."
   archive:
     guidance:
       - Archive as soon as the owner approves the PR, in the same PR, before it is merged.

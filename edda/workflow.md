@@ -32,6 +32,7 @@ In 2.1.1, `openspec init` puts skills in `~/.agents/skills/` (machine-wide) unle
 - PR title: `<issue id>: <description>` (e.g. `FLO-1: Initialize flo`).
 - PRs go to `main` on `github.com/reveer-ai/flo` and are always squash-merged.
 - Open the PR as soon as the proposal is written, so the whole change is reviewed there from the start. From then on, push as work becomes ready: each OpenSpec refinement as soon as it's written, and code as each piece is finished. Don't hold finished work locally.
+- End implementation with the PR (owner, 2026-11-21). Make sure it's open (open it if it somehow isn't), all the work is pushed, and its description is rewritten for review: status, what's in it, what was verified and what wasn't. Then give the owner its link.
 - After the owner approves a PR, run `openspec archive <change>` on the PR branch, commit and push, then merge. Never merge with the change still under `openspec/changes/`.
 - The remote is SSH (`git@github.com:reveer-ai/flo.git`). Over HTTPS, git authenticates as a GitHub account without push access.
 
