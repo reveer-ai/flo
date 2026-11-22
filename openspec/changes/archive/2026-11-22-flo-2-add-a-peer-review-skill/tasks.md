@@ -4,7 +4,7 @@
 
 - [x] 1.1 Check the current Claude Code, Codex and OpenCode docs for where each reads project skills and what frontmatter they need. Record the result in the PR, and verify it matches the design's Context, or update the design and the `init` spec if it doesn't
 - [x] 1.2 Draft `skills/peer-review/SKILL.md` from the design's decisions (managed-by-flo note, review, apply, re-review, missing reviewer, handoff), and verify each requirement in the `peer-review` spec is covered by a line of the skill
-- [ ] 1.3 Refine the skill's wording with the owner over several rounds in the PR, and verify the owner approves the text
+- [x] 1.3 Refine the skill's wording with the owner over several rounds in the PR, and verify the owner approves the text
 
 ## 2. `flo init`
 

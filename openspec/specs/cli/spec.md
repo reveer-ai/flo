@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The `flo` command that the `flo-ai` npm package installs: what it answers, where its output goes, and how it exits. It has no product commands yet.
+The `flo` command that the `flo-ai` npm package installs: what it answers, where its output goes, and how it exits. Its one command, `init`, has its own spec (`init`).
 
 ## Requirements
 
@@ -22,7 +22,7 @@ The npm package `flo-ai` SHALL provide one executable, `flo`, runnable without a
 
 ### Requirement: Help describes flo and its options
 
-`flo` with no arguments, or with exactly `--help`, SHALL print a usage text to stdout and exit 0. The usage SHALL say in one line what flo is, say that it has no commands yet, and list `--help` and `--version`.
+`flo` with no arguments, or with exactly `--help`, SHALL print a usage text to stdout and exit 0. The usage SHALL say in one line what flo is, list the `init` command with what it does, and list `--help` and `--version`.
 
 #### Scenario: No arguments
 
@@ -33,6 +33,11 @@ The npm package `flo-ai` SHALL provide one executable, `flo`, runnable without a
 
 - **WHEN** someone runs `flo --help`
 - **THEN** the same usage is printed to stdout and the exit code is 0
+
+#### Scenario: Usage lists init
+
+- **WHEN** someone reads the usage
+- **THEN** it lists `init` as installing flo's skills into the current project, and doesn't say flo has no commands
 
 ### Requirement: --version prints the installed version
 
@@ -46,12 +51,12 @@ The npm package `flo-ai` SHALL provide one executable, `flo`, runnable without a
 
 ### Requirement: Anything else is an error
 
-Any other arguments SHALL make `flo` print `Unknown argument:` followed by the arguments, then the usage, to stderr, and exit 1. This covers unknown flags, unknown words, and `--help` or `--version` combined with anything else. It SHALL write no files.
+Any other arguments SHALL make `flo` print `Unknown argument:` followed by the arguments, then the usage, to stderr, and exit 1. This covers unknown flags, unknown words, `init` with anything after it, and `--help` or `--version` combined with anything else. It SHALL write no files.
 
 #### Scenario: Unknown word
 
-- **WHEN** someone runs `flo init`
-- **THEN** stderr starts with `Unknown argument: init`, the usage follows on stderr, stdout is empty, and the exit code is 1
+- **WHEN** someone runs `flo frobnicate`
+- **THEN** stderr starts with `Unknown argument: frobnicate`, the usage follows on stderr, stdout is empty, and the exit code is 1
 
 #### Scenario: Known flag with extra arguments
 
@@ -60,5 +65,5 @@ Any other arguments SHALL make `flo` print `Unknown argument:` followed by the a
 
 #### Scenario: Nothing is written
 
-- **WHEN** `flo` runs with any arguments in a directory
+- **WHEN** `flo` runs with arguments other than exactly `init` in a directory
 - **THEN** the directory's contents are unchanged afterwards
