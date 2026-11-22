@@ -37,15 +37,26 @@ In 2.1.1, `openspec init` puts skills in `~/.agents/skills/` (machine-wide) unle
 
 ## History
 
-The owner chose (2026-11-21) to have `main` start with FLO-1's squashed commit. So `main` was force-pushed from the LICENSE-only commit (`92d8e30`) to one empty commit (`a62460e`), and FLO-1's branch carries `LICENSE` unchanged. After FLO-1 is squash-merged, the empty root is folded into the squashed commit and `main` is force-pushed once more. Protecting `main` comes after that, because protection blocks the rewrite. Don't force-push `main` again unless the owner asks. A force-push that replaces a PR's base history closes the PR on GitHub, and it can't be reopened.
+`main` starts with FLO-1's squashed commit, which the owner chose on 2026-11-21. The repo's original LICENSE-only commit (`92d8e30`) and the empty root that briefly replaced it were folded away, and FLO-1 carries `LICENSE` unchanged. Every commit after it is one squash-merged PR.
+
+`main` is protected by GitHub rulesets with no bypass actors, so they bind the owner too:
+
+- **Branch ruleset on `main`:** no force-pushes or deletion. Changes arrive only through a pull request, merged by squash, whose `test` check passed. A branch doesn't need to be up to date with `main` to merge.
+- **Tag ruleset on `refs/tags/v*`:** release tags can't be moved or deleted. Creating them is allowed, so the release workflow can tag.
+- The repo's merge settings allow only squash merges.
+
+`main`'s history isn't rewritten again. If the owner ever asks for a rewrite, it means turning the branch ruleset off on purpose and back on afterwards. A force-push that replaces a PR's base history closes the PR on GitHub, and it can't be reopened.
 
 ## Releasing
 
-The pipeline arrives with FLO-1; its design is in that change.
+FLO-1 set up the pipeline: `.github/workflows/release.yml` runs `scripts/release.js`. Its design and the `release` spec came with FLO-1's change.
 
 - `version` in `package.json` is the only source of flo's version. A PR that should ship bumps it itself, following semver while flo is on `0.x`: a minor bump for new behavior, a patch bump for fixes. A PR that doesn't bump it, such as a record-only change, releases nothing.
-- On every push to `main`, the release workflow runs the tests, publishes the version to npm if it isn't there yet, tags the commit `v<version>`, and creates a GitHub release. On PRs it only runs the tests and `npm pack --dry-run`. Nothing commits to `main` on a release.
+- On every push to `main`, the release workflow runs the tests, publishes the version to npm if it isn't there yet, tags the commit `v<version>`, and creates a GitHub release. On PRs it only runs the tests and `npm pack --dry-run`, as the `test` check. Nothing commits to `main` on a release.
+- Every release step checks before it acts, so a failed run is fixed by rerunning it: it finishes only what's missing. It refuses a version lower than npm's `latest`, or one that isn't plain `major.minor.patch`.
 - Publishing uses npm trusted publishing, so no npm token exists. The trusted publisher allows direct `npm publish`, not npm's default staged publishing, so a release doesn't wait for the owner's 2FA. Configuring it on npmjs.com is the owner's step.
+- The trusted publisher for `flo-ai` is: owner `reveer-ai`, repository `flo`, workflow `release.yml`, environment `npm`, direct publish allowed. Renaming the workflow file or the environment breaks publishing until the trusted publisher is recreated to match.
+- The release job runs in the GitHub environment `npm`, which only `main` can deploy to. Because the trusted publisher names that environment, a pull request that edits the workflow can't get a publish token from its own run.
 - npm lets a trusted publisher be set up only for a package that already exists, and a new one expires if nothing publishes through it within two days (npm docs, read 2026-11-21). So the first version of a new package is a bootstrap published by hand, and the trusted publisher is set up right before the workflow's first publish.
 - A published version can't be taken back. To roll back, deprecate it (`npm deprecate`) and release a fix.
 
