@@ -1,7 +1,7 @@
 {
   "name": "flo-ai",
-  "version": "0.2.0",
-  "description": "The entire workflow for developing agentic software. Early: it installs one skill, peer-review.",
+  "version": "0.2.1",
+  "description": "The entire workflow for developing agentic software. Early: it installs one skill, flo-review.",
   "license": "MIT",
   "type": "module",
   "bin": {

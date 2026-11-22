@@ -2,7 +2,7 @@
 
 flo will handle the entire workflow for developing agentic software.
 
-It's early: flo ships one skill, `peer-review`, which has your coding assistant get a fresh agent to review its work before handing it to you.
+It's early: flo ships one skill, `flo-review`, which has your coding assistant get a fresh agent to review its work before handing it to you.
 
 ## Install the skills
 
