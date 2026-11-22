@@ -50,13 +50,13 @@ Constraints:
 **`flo init` installs into the current directory and takes no options.** For each skill in the package's `skills/`:
 
 1. It copies the skill to `.agents/skills/<name>/`, replacing any earlier copy. Rerunning `flo init` updates the skill to the installed version. A local edit to a copy is lost, and the skill says it's managed by flo.
-2. If `.claude/skills/` exists, it links `.claude/skills/<name>` to `../../.agents/skills/<name>`. The link is relative, so it survives moving or cloning the repo. An existing link is replaced. Anything else at that path is left alone and reported on stderr, and `flo init` exits 1, so it never deletes something the user made.
+2. If `.claude/skills/` exists, it links `.claude/skills/<name>` to `../../.agents/skills/<name>`. The link is relative, so it survives moving or cloning the repo. An existing link is replaced. If the path is already the `.agents/skills/<name>` copy itself, because `.claude/skills` and `.agents/skills` are one folder through a symlink, the skill is already linked: `flo init` makes no link there and exits 0 (owner, 2026-11-22). Anything else at that path is left alone and reported on stderr, and `flo init` exits 1, so it never deletes something the user made.
 
 It creates `.agents/skills/` if needed, but never `.claude/skills/`, since its existence is the signal that Claude Code is in use. It prints one line per file or link it wrote. *Alternative:* skip skills that are already installed. Rejected, because then an upgraded flo couldn't update them.
 
 **Plain Node built-ins, as in FLO-1.** `fs.cpSync` and `fs.symlinkSync`, with no dependencies. The package's `files` gains `skills/`.
 
-**Tests** run `flo init` in temporary directories and cover: a fresh project, a project with `.claude/skills/`, a rerun that updates a copy, and a real folder sitting where a link should go.
+**Tests** run `flo init` in temporary directories and cover: a fresh project, a project with `.claude/skills/`, a rerun that updates a copy, a real folder sitting where a link should go, and `.claude/skills` and `.agents/skills` being one folder.
 
 ## Risks / Trade-offs
 

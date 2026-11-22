@@ -5,6 +5,7 @@ import {
   mkdirSync,
   readdirSync,
   readFileSync,
+  realpathSync,
   rmSync,
   statSync,
   symlinkSync,
@@ -55,6 +56,11 @@ function init() {
     const shown = `.claude/skills/${name}`;
     const target = `../../.agents/skills/${name}`;
     const existing = lstatOrNull(link);
+    // .claude/skills and .agents/skills are one folder through a symlink, so
+    // the copy is already visible here.
+    if (existing && !existing.isSymbolicLink() && sameFolder(link, join('.agents', 'skills', name))) {
+      continue;
+    }
     if (existing && !existing.isSymbolicLink()) {
       process.stderr.write(
         `Left ${shown} as it is: it isn't a symlink, so flo won't replace it. Remove it and rerun flo init to link the skill.\n`,
@@ -80,6 +86,10 @@ function isDirectory(path) {
   } catch {
     return false;
   }
+}
+
+function sameFolder(a, b) {
+  return realpathSync(a) === realpathSync(b);
 }
 
 function lstatOrNull(path) {

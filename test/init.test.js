@@ -125,6 +125,25 @@ test('.claude/skills is never created', (t) => {
   assert.ok(!stdout.includes('.claude'));
 });
 
+for (const [linked, target] of [['.claude', '.agents'], ['.agents', '.claude']]) {
+  test(`${linked}/skills symlinked to ${target}/skills counts as linked`, (t) => {
+    const dir = project(t);
+    mkdirSync(join(dir, target, 'skills'), { recursive: true });
+    mkdirSync(join(dir, linked));
+    symlinkSync(`../${target}/skills`, join(dir, linked, 'skills'));
+    const { code, stderr } = flo(['init'], dir);
+    assert.equal(code, 0);
+    assert.equal(stderr, '');
+    assert.equal(readlinkSync(join(dir, linked, 'skills')), `../${target}/skills`);
+    for (const side of ['.agents', '.claude']) {
+      assert.deepEqual(
+        tree(join(dir, side, 'skills', 'peer-review')),
+        tree(join(shipped, 'peer-review')),
+      );
+    }
+  });
+}
+
 test('a real folder where a link should go is left, reported, and exits 1', (t) => {
   const dir = project(t);
   const folder = join(dir, '.claude', 'skills', 'peer-review');

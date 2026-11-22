@@ -60,9 +60,25 @@ If `.claude/skills/` exists, `flo init` SHALL make `.claude/skills/<name>` a rel
 - **WHEN** someone runs `flo init`
 - **THEN** `.claude/skills/` still doesn't exist
 
+### Requirement: One shared skills folder counts as linked
+
+When `.claude/skills/<name>` and `.agents/skills/<name>` are the same folder, because `.claude/skills` and `.agents/skills` are one folder through a symlink, `flo init` SHALL treat the skill as already linked. It SHALL make no link there, report no error for it, and exit 0.
+
+#### Scenario: .claude/skills links to .agents/skills
+
+- **GIVEN** `.claude/skills` is a symlink to `../.agents/skills`
+- **WHEN** someone runs `flo init`
+- **THEN** `.claude/skills` is still that symlink, `.claude/skills/peer-review/SKILL.md` matches the package's copy, stderr is empty, and the exit code is 0
+
+#### Scenario: .agents/skills links to .claude/skills
+
+- **GIVEN** `.agents/skills` is a symlink to `../.claude/skills`
+- **WHEN** someone runs `flo init`
+- **THEN** `.agents/skills` is still that symlink, `.agents/skills/peer-review/SKILL.md` matches the package's copy, stderr is empty, and the exit code is 0
+
 ### Requirement: flo init never replaces something that isn't its link
 
-If anything other than a symlink is at `.claude/skills/<name>`, `flo init` SHALL leave it untouched, say on stderr which path it left and why, and exit 1. It SHALL still install the `.agents/skills/` copies.
+If anything other than a symlink is at `.claude/skills/<name>`, and it isn't the `.agents/skills/<name>` copy itself, `flo init` SHALL leave it untouched, say on stderr which path it left and why, and exit 1. It SHALL still install the `.agents/skills/` copies.
 
 #### Scenario: A real folder in the way
 
