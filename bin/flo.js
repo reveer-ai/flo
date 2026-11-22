@@ -5,7 +5,6 @@ import {
   mkdirSync,
   readdirSync,
   readFileSync,
-  realpathSync,
   rmSync,
   statSync,
   symlinkSync,
@@ -88,8 +87,11 @@ function isDirectory(path) {
   }
 }
 
+// Compares the folders themselves, not their paths, so different spellings of
+// one folder (such as case on a case-insensitive filesystem) still match.
 function sameFolder(a, b) {
-  return realpathSync(a) === realpathSync(b);
+  const [x, y] = [statSync(a), statSync(b)];
+  return x.dev === y.dev && x.ino === y.ino;
 }
 
 function lstatOrNull(path) {
