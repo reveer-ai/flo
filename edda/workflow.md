@@ -1,6 +1,6 @@
 # How work is done
 
-The owner adopted clare's conventions (`../clare/edda/workflow.md`) for this repo on 2026-11-21. This is how work on flo itself is done, not what flo the product prescribes.
+Set by the project owner on 2026-11-21. This is how work on flo itself is done, not what flo the product prescribes.
 
 ## Tracking: Linear
 
@@ -37,16 +37,16 @@ In 2.1.1, `openspec init` puts skills in `~/.agents/skills/` (machine-wide) unle
 
 ## History
 
-The owner chose (2026-11-21) to have `main` start with FLO-1's squashed commit, as clare did. So `main` was force-pushed from the LICENSE-only commit (`92d8e30`) to one empty commit (`a62460e`), and FLO-1's branch carries `LICENSE` unchanged. After FLO-1 is squash-merged, the empty root is folded into the squashed commit and `main` is force-pushed once more. Protecting `main` comes after that, because protection blocks the rewrite. Don't force-push `main` again unless the owner asks. A force-push that replaces a PR's base history closes the PR on GitHub, and it can't be reopened.
+The owner chose (2026-11-21) to have `main` start with FLO-1's squashed commit. So `main` was force-pushed from the LICENSE-only commit (`92d8e30`) to one empty commit (`a62460e`), and FLO-1's branch carries `LICENSE` unchanged. After FLO-1 is squash-merged, the empty root is folded into the squashed commit and `main` is force-pushed once more. Protecting `main` comes after that, because protection blocks the rewrite. Don't force-push `main` again unless the owner asks. A force-push that replaces a PR's base history closes the PR on GitHub, and it can't be reopened.
 
 ## Releasing
 
-Adopted from clare; the pipeline itself arrives with FLO-1.
+The pipeline arrives with FLO-1; its design is in that change.
 
 - `version` in `package.json` is the only source of flo's version. A PR that should ship bumps it itself, following semver while flo is on `0.x`: a minor bump for new behavior, a patch bump for fixes. A PR that doesn't bump it, such as a record-only change, releases nothing.
 - On every push to `main`, the release workflow runs the tests, publishes the version to npm if it isn't there yet, tags the commit `v<version>`, and creates a GitHub release. On PRs it only runs the tests and `npm pack --dry-run`. Nothing commits to `main` on a release.
 - Publishing uses npm trusted publishing, so no npm token exists. The trusted publisher allows direct `npm publish`, not npm's default staged publishing, so a release doesn't wait for the owner's 2FA. Configuring it on npmjs.com is the owner's step.
-- npm lets a trusted publisher be set up only for a package that already exists (npm docs, read 2026-11-21). A new one shows "Pending validation" until its first publish and expires two days after it's created if nothing publishes (`../edda/edda/facts.md`). So the first version of a new package is a bootstrap published by hand, and the trusted publisher is set up right before the workflow's first publish.
+- npm lets a trusted publisher be set up only for a package that already exists, and a new one expires if nothing publishes through it within two days (npm docs, read 2026-11-21). So the first version of a new package is a bootstrap published by hand, and the trusted publisher is set up right before the workflow's first publish.
 - A published version can't be taken back. To roll back, deprecate it (`npm deprecate`) and release a fix.
 
 ## Where the roadmap lives
