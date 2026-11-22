@@ -1,0 +1,55 @@
+# Tests every pull request to main. On every push to main, also releases
+# package.json's version (scripts/release.js): publishes it to npm if it isn't
+# there yet, tags the commit v<version>, and creates its GitHub release.
+#
+# npm's trusted publisher for flo-ai names this file (release.yml) and the
+# environment `npm`. Renaming either breaks publishing until the trusted
+# publisher is recreated to match.
+name: release
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: npm test
+      - run: npm pack --dry-run
+
+  release:
+    name: release
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    # Only main can deploy to this environment, and npm accepts a publish
+    # token only from a job in it.
+    environment: npm
+    concurrency:
+      group: release
+      cancel-in-progress: false
+    permissions:
+      contents: write # push the tag, create the GitHub release
+      id-token: write # npm trusted publishing
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      # Trusted publishing needs npm 11.5.1 or later.
+      - run: npm install -g npm@latest
+      - run: node scripts/release.js
+        env:
+          GH_TOKEN: ${{ github.token }}
