@@ -16,6 +16,8 @@ Stay on the latest OpenSpec release (owner, 2026-11-21). Before each change, che
 
 In 2.1.1, `openspec init` puts skills in `~/.agents/skills/` (machine-wide) unless it's given `--scope project`.
 
+A change that removes a capability's last requirement, such as renaming a capability (a remove plus an add), won't archive unless its `.openspec.yaml` sets `retire_capabilities: true`. With that set, archiving deletes the emptied spec (FLO-3, OpenSpec 2.1.1).
+
 ## Approval gates
 
 | Step | Who |

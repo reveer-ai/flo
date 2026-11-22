@@ -1,5 +1,5 @@
 ---
-name: peer-review
+name: flo-review
 description: Have a fresh agent review an implementation, apply what it finds, then hand the work to the user. Use once you've finished implementing something, before you hand it to the user.
 ---
 

@@ -14,7 +14,7 @@ How `flo init` installs flo's skills into a project, so every coding assistant t
 
 - **GIVEN** a directory with no `.agents/`
 - **WHEN** someone runs `flo init` there
-- **THEN** `.agents/skills/peer-review/SKILL.md` exists and matches the package's copy, and the exit code is 0
+- **THEN** `.agents/skills/flo-review/SKILL.md` exists and matches the package's copy, and the exit code is 0
 
 #### Scenario: Other skills are left alone
 
@@ -28,13 +28,13 @@ When a flo skill is already in `.agents/skills/`, `flo init` SHALL replace it wi
 
 #### Scenario: An edited copy
 
-- **GIVEN** `.agents/skills/peer-review/SKILL.md` was edited after an earlier `flo init`
+- **GIVEN** `.agents/skills/flo-review/SKILL.md` was edited after an earlier `flo init`
 - **WHEN** someone runs `flo init` again
 - **THEN** the file matches the package's copy again
 
 #### Scenario: A stale file in the copy
 
-- **GIVEN** `.agents/skills/peer-review/` holds a file the package's copy doesn't have
+- **GIVEN** `.agents/skills/flo-review/` holds a file the package's copy doesn't have
 - **WHEN** someone runs `flo init`
 - **THEN** that file is gone
 
@@ -46,13 +46,13 @@ If `.claude/skills/` exists, `flo init` SHALL make `.claude/skills/<name>` a rel
 
 - **GIVEN** `.claude/skills/` exists
 - **WHEN** someone runs `flo init`
-- **THEN** `.claude/skills/peer-review` is a symlink whose target is `../../.agents/skills/peer-review`
+- **THEN** `.claude/skills/flo-review` is a symlink whose target is `../../.agents/skills/flo-review`
 
 #### Scenario: An old link
 
-- **GIVEN** `.claude/skills/peer-review` is a symlink to somewhere else
+- **GIVEN** `.claude/skills/flo-review` is a symlink to somewhere else
 - **WHEN** someone runs `flo init`
-- **THEN** it now points to `../../.agents/skills/peer-review`
+- **THEN** it now points to `../../.agents/skills/flo-review`
 
 #### Scenario: No .claude/skills
 
@@ -68,13 +68,13 @@ When `.claude/skills/<name>` and `.agents/skills/<name>` are the same folder, be
 
 - **GIVEN** `.claude/skills` is a symlink to `../.agents/skills`
 - **WHEN** someone runs `flo init`
-- **THEN** `.claude/skills` is still that symlink, `.claude/skills/peer-review/SKILL.md` matches the package's copy, stderr is empty, and the exit code is 0
+- **THEN** `.claude/skills` is still that symlink, `.claude/skills/flo-review/SKILL.md` matches the package's copy, stderr is empty, and the exit code is 0
 
 #### Scenario: .agents/skills links to .claude/skills
 
 - **GIVEN** `.agents/skills` is a symlink to `../.claude/skills`
 - **WHEN** someone runs `flo init`
-- **THEN** `.agents/skills` is still that symlink, `.agents/skills/peer-review/SKILL.md` matches the package's copy, stderr is empty, and the exit code is 0
+- **THEN** `.agents/skills` is still that symlink, `.agents/skills/flo-review/SKILL.md` matches the package's copy, stderr is empty, and the exit code is 0
 
 ### Requirement: flo init never replaces something that isn't its link
 
@@ -82,9 +82,9 @@ If anything other than a symlink is at `.claude/skills/<name>`, and it isn't the
 
 #### Scenario: A real folder in the way
 
-- **GIVEN** `.claude/skills/peer-review/` is a real folder
+- **GIVEN** `.claude/skills/flo-review/` is a real folder
 - **WHEN** someone runs `flo init`
-- **THEN** that folder is unchanged, stderr names `.claude/skills/peer-review`, `.agents/skills/peer-review/` is installed, and the exit code is 1
+- **THEN** that folder is unchanged, stderr names `.claude/skills/flo-review`, `.agents/skills/flo-review/` is installed, and the exit code is 1
 
 ### Requirement: flo init reports what it wrote
 
@@ -94,7 +94,7 @@ If anything other than a symlink is at `.claude/skills/<name>`, and it isn't the
 
 - **GIVEN** `.claude/skills/` exists
 - **WHEN** someone runs `flo init`
-- **THEN** stdout has a line naming `.agents/skills/peer-review` and a line naming `.claude/skills/peer-review`
+- **THEN** stdout has a line naming `.agents/skills/flo-review` and a line naming `.claude/skills/flo-review`
 
 ### Requirement: flo init takes no arguments
 
@@ -104,3 +104,12 @@ If anything other than a symlink is at `.claude/skills/<name>`, and it isn't the
 
 - **WHEN** someone runs `flo init extra`
 - **THEN** stderr starts with `Unknown argument: init extra`, nothing is written, and the exit code is 1
+
+### Requirement: Every skill flo ships is named flo-<name>
+
+Every skill flo ships SHALL have a name that starts with `flo-`, and its folder SHALL have the same name, so a project can tell which skills in its skills folders flo manages.
+
+#### Scenario: The shipped skills
+
+- **WHEN** someone lists the skills in the package
+- **THEN** every skill's folder and `name` start with `flo-`

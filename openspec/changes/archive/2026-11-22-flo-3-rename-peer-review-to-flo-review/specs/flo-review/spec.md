@@ -1,18 +1,18 @@
-# peer-review Specification
+# Spec Delta
 
 ## Purpose
 
-The `peer-review` skill that flo ships: what it has an agent do between finishing an implementation and handing it to the user, so an independent agent reviews the work before the user sees it.
+The `flo-review` skill that flo ships: what it has an agent do between finishing an implementation and handing it to the user, so an independent agent reviews the work before the user sees it.
 
-## Requirements
+## ADDED Requirements
 
 ### Requirement: The skill runs when an implementation is finished
 
-flo SHALL ship a skill named `peer-review` as a `SKILL.md` with `name` and `description` frontmatter. Its description SHALL say to use it once an implementation is finished and before the work is handed to the user. The skill SHALL say that flo manages it and that `flo init` replaces local edits.
+flo SHALL ship a skill named `flo-review` as a `SKILL.md` with `name` and `description` frontmatter. Its description SHALL say to use it once an implementation is finished and before the work is handed to the user. The skill SHALL say that flo manages it and that `flo init` replaces local edits.
 
 #### Scenario: An agent finishes implementing
 
-- **GIVEN** a project where `peer-review` is installed
+- **GIVEN** a project where `flo-review` is installed
 - **WHEN** an agent finishes implementing something the user asked for
 - **THEN** the skill's description matches that moment, and it runs before the agent hands the work over
 
