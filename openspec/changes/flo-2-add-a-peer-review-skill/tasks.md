@@ -26,3 +26,4 @@
 
 - End implementation with the PR: everything pushed, and the description rewritten for review (status, what's in it, what was and wasn't verified). Then give the owner its link.
 - Once the owner approves the PR, archive the change in it (`openspec archive flo-2-add-a-peer-review-skill`), commit and push, then squash-merge on the owner's word. The merge releases `0.2.0`.
+- After archiving, update the Purpose of `openspec/specs/cli/spec.md`, which still says flo has no product commands. The `cli` delta changes requirements only, so archiving doesn't touch it.

@@ -28,7 +28,7 @@ Ask it to judge whether the work:
 - has tests that would fail without it;
 - leaves docs and records saying what's now true.
 
-It runs the checks, reproduces each finding before reporting it, drops what it can't show, and changes no files. It reports each finding with where it is and how to show it, plus any check it couldn't run. Where it disagrees with something the user decided, it asks a question instead of proposing a fix.
+Tell it to run the checks, reproduce each finding before reporting it, drop what it can't show, and change no files. It should report each finding with where it is and how to show it, plus any check it couldn't run. Where it disagrees with something the user decided, it should ask a question instead of proposing a fix.
 
 If you can't start a reviewer that meets the bar, don't skip the review silently. If you can't start one at all, say so at the start of the handoff. If you can only use a weaker model, run the review with it and open the handoff by naming that model.
 

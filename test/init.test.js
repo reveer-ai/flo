@@ -54,7 +54,11 @@ test('a fresh project gets every skill in .agents/skills', (t) => {
   const { code, stderr } = flo(['init'], dir);
   assert.equal(code, 0);
   assert.equal(stderr, '');
-  for (const name of readdirSync(shipped)) {
+  const names = readdirSync(shipped, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name);
+  assert.ok(names.length > 0);
+  for (const name of names) {
     assert.deepEqual(tree(join(dir, '.agents', 'skills', name)), tree(join(shipped, name)));
   }
 });
@@ -131,6 +135,19 @@ test('a real folder where a link should go is left, reported, and exits 1', (t) 
   assert.ok(stderr.includes('.claude/skills/peer-review'));
   assert.ok(!lstatSync(folder).isSymbolicLink());
   assert.deepEqual(tree(folder), { '/SKILL.md': 'mine' });
+  assert.ok(existsSync(join(dir, skillFile)), '.agents/skills copy is still installed');
+});
+
+test('a regular file where a link should go is left, reported, and exits 1', (t) => {
+  const dir = project(t);
+  mkdirSync(join(dir, '.claude', 'skills'), { recursive: true });
+  const file = join(dir, '.claude', 'skills', 'peer-review');
+  writeFileSync(file, 'mine');
+  const { code, stderr } = flo(['init'], dir);
+  assert.equal(code, 1);
+  assert.ok(stderr.includes('.claude/skills/peer-review'));
+  assert.ok(lstatSync(file).isFile());
+  assert.equal(readFileSync(file, 'utf8'), 'mine');
   assert.ok(existsSync(join(dir, skillFile)), '.agents/skills copy is still installed');
 });
 
