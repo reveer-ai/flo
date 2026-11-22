@@ -14,12 +14,12 @@
 
 ## 3. Docs and record
 
-- [ ] 3.1 Update `README.md` with `npx flo-ai init`, what it installs and where, and that rerunning it updates the skills. Verify every command it shows runs as written from a scratch directory
-- [ ] 3.2 Update `edda/vision.md` so it no longer says the command does only `--help` and `--version`, and record that `peer-review` is flo's first skill. Verify `edda/index.md` still describes each file accurately
+- [x] 3.1 Update `README.md` with `npx flo-ai init`, what it installs and where, and that rerunning it updates the skills. Verify every command it shows runs as written from a scratch directory
+- [x] 3.2 Update `edda/vision.md` so it no longer says the command does only `--help` and `--version`, and record that `peer-review` is flo's first skill. Verify `edda/index.md` still describes each file accurately
 
 ## 4. Integration
 
-- [ ] 4.1 Run `npm pack`, install the tarball into a scratch project with `.claude/skills/`, run `npx flo init`, and verify the installed skill and link match the package
+- [x] 4.1 Run `npm pack`, install the tarball into a scratch project with `.claude/skills/`, run `npx flo init`, and verify the installed skill and link match the package
 - [ ] 4.2 Follow `peer-review` on this change itself: a fresh frontier-class subagent reviews the implementation, findings are applied or declined, and the result goes in the PR description. Verify the PR description lists each finding and its resolution
 
 ## Workflow follow-up

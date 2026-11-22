@@ -6,13 +6,15 @@ flo is for workflow: it will handle the entire workflow for developing agentic s
 
 Review is the idea flo started from: an agent should spin out a review agent before code goes to a human for review, and designs and specs should get reviewed the same way. That's one part of the workflow, not the whole of it.
 
-What flo holds and how it works aren't scoped yet. That comes after FLO-1, which only sets up the repository and ships an empty package.
+What flo holds beyond `peer-review` isn't scoped yet. FLO-1 set up the repository and shipped an empty package, and FLO-2 added the first skill.
 
 ## What it ships as
 
-An npm package, **`flo-ai`**, whose command is **`flo`**. The npm name `flo` belongs to an unrelated package, so `npx flo` won't run flo; it has to be `npx flo-ai`. Until skills exist, the command does only `--help` and `--version` (FLO-1).
+An npm package, **`flo-ai`**, whose command is **`flo`**. The npm name `flo` belongs to an unrelated package, so `npx flo` won't run flo; it has to be `npx flo-ai`.
 
-When flo ships skills, `flo init` copies them into the project's `.agents/skills/`, and if `.claude/skills/` exists, it symlinks them there to the `.agents/skills/` copies (owner, 2026-11-21).
+flo ships skills, and `flo init` installs them: it copies them into the project's `.agents/skills/`, and if `.claude/skills/` exists, it symlinks them there to the `.agents/skills/` copies (owner, 2026-11-21). Rerunning it updates them. Besides `init`, the command answers only `--help` and `--version`.
+
+The first skill is **`peer-review`** (FLO-2, `0.2.0`): once an agent finishes an implementation, a fresh agent on a frontier-class model reviews it, the implementer applies what holds up, and the work goes to the user following the project's own handoff norms. flo's own repo doesn't use it yet; adopting it would change [workflow.md](workflow.md), which is a separate decision.
 
 ## Prior art for scoping
 
