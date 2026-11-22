@@ -10,7 +10,7 @@ All work is tracked in Linear, team **flo** (key `FLO`, under the reveer workspa
 
 Every tangible change is an OpenSpec change in `openspec/` (proposal → design → specs → tasks), and its specs are archived into `openspec/specs/` once it lands. The OpenSpec skills live in `.agents/skills/` (the assistant-agnostic location); `openspec/config.yaml` carries the rules below for OpenSpec's own workflows. If the gates change, update both.
 
-Stay on the latest OpenSpec release. The repo was set up with 2.1.1, installed globally (`npm install -g @fission-ai/openspec@latest`; on this machine it's Homebrew's `/opt/homebrew/bin/openspec`). After any upgrade, run `openspec update` to regenerate `.agents/skills/` and commit the result. The generated files don't record the CLI version, so check it with `openspec --version`.
+Stay on the latest OpenSpec release (owner, 2026-11-21). Before each change, check `npm view @fission-ai/openspec version` against `openspec --version`, and upgrade with `npm install -g @fission-ai/openspec@latest`. The repo was set up with 2.1.1, the latest at the time (released 2026-11-19). After any upgrade, run `openspec update` to regenerate `.agents/skills/` and commit the result. The generated files don't record the CLI version, so check it with `openspec --version`.
 
 In 2.1.1, `openspec init` puts skills in `~/.agents/skills/` (machine-wide) unless told otherwise. This repo was initialized with `openspec init --tools agents --scope project`.
 

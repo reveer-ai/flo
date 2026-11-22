@@ -4,7 +4,7 @@ Implements Linear issue **FLO-1** (Initialize flo).
 
 ## Why
 
-flo will be a set of workflow skills that get agentic work reviewed by an agent before it reaches a person (see `edda/vision.md`), but its scope comes later. Before any product work, the repository needs its working foundation, and the package needs to ship once, so the delivery path is proven before skills depend on it.
+flo will handle the entire workflow for developing agentic software (see `edda/vision.md`), but its scope comes later. Before any product work, the repository needs its working foundation, and the package needs to ship once, so the delivery path is proven before skills depend on it.
 
 ## What Changes
 

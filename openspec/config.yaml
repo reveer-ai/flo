@@ -1,7 +1,7 @@
 schema: spec-driven
 
 context: |
-  flo ships as an npm package (flo-ai, command flo) of workflow skills that any coding assistant can use.
+  flo handles the entire workflow for developing agentic software. It ships as an npm package (flo-ai, command flo) that any coding assistant can use.
   Nothing flo ships may depend on one assistant (Claude, Codex, Cursor, ...).
   Every change maps to one Linear issue (team FLO); name the change after it.
 

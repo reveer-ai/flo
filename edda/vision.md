@@ -1,8 +1,10 @@
 # What flo is
 
-From the project owner, carried over on 2026-11-21 from an earlier session in `../jen`. This is the product definition so far; work should trace back to it.
+From the project owner, carried over on 2026-11-21 from an earlier session in `../jen` and corrected in FLO-1's proposal review the same day. This is the product definition so far; work should trace back to it.
 
-flo is for workflow: how agentic work gets done. The owner's idea: an agent should spin out a review agent before code goes to a human for review, and designs and specs should get reviewed the same way. So flo will be a set of workflow skills for agents that get work reviewed by an agent before it reaches a person, at each stage from design to code.
+flo is for workflow: it will handle the entire workflow for developing agentic software, as the owner sees makes sense. It isn't only about reviewing agentic work (owner, 2026-11-21, correcting an earlier framing).
+
+Review is the idea flo started from: an agent should spin out a review agent before code goes to a human for review, and designs and specs should get reviewed the same way. That's one part of the workflow, not the whole of it.
 
 What flo holds and how it works aren't scoped yet. That comes after FLO-1, which only sets up the repository and ships an empty package.
 
