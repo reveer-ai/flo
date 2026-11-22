@@ -18,7 +18,7 @@
 - [ ] 3.1 Write `scripts/release.js` (publish if missing and not lower than `latest`, then tag, then GitHub release, each step checked first) and `test/release.test.js` with a fake runner covering each `release` spec scenario the script owns, and verify `npm test` passes
 - [ ] 3.2 Write `.github/workflows/release.yml`: a `test` job on pull requests and pushes to `main` (Node 24, `npm test`, `npm pack --dry-run`), and a `release` job only on pushes to `main`, after `test`, in environment `npm`, with `id-token: write` and `contents: write`, serialized with `concurrency`, updating npm before `node scripts/release.js`. Verify the `test` check passes on this PR
 - [ ] 3.3 Create the GitHub environment `npm` with deployments allowed only from `main`, and verify `gh api repos/reveer-ai/flo/environments/npm` shows that branch policy
-- [ ] 3.4 Record in `edda/workflow.md` how releases work: the `npm` environment, the trusted publisher's fields (owner `reveer-ai`, repository `flo`, workflow `release.yml`, environment `npm`, direct publish), and that renaming the workflow or the environment breaks publishing until the trusted publisher is recreated. Verify `edda/index.md` still describes `workflow.md` accurately
+- [ ] 3.4 Record in `edda/workflow.md` how releases work: the `npm` environment, the trusted publisher's fields (owner `reveer-ai`, repository `flo`, workflow `release.yml`, environment `npm`, direct publish), and that renaming the workflow or the environment breaks publishing until the trusted publisher is recreated. Rewrite its History section to describe `main` as it will be once FLO-1 lands (one FLO-1 commit, protected by the rulesets), since nothing updates the record after the merge. Verify `edda/index.md` still describes `workflow.md` accurately
 
 ## Workflow follow-up
 
@@ -31,4 +31,4 @@ In order, after the owner approves the PR (design: "Order of the first release a
 - Fold the empty root into the squashed commit (same tree, message and author, no parent) and push it with `--force-with-lease` pinned to the merge commit. Check that `git log origin/main` shows one commit, and that its release run publishes `0.1.0`, tags `v0.1.0` on it, and creates the GitHub release.
 - Apply the rulesets and merge settings from the design. Check that a force-push to `main` and moving a `v*` tag are both rejected.
 - The owner deprecates `0.0.1`: `npm deprecate flo-ai@0.0.1 "bootstrap release, use 0.1.0+"`.
-- Check that `npx flo-ai@latest --version` prints `0.1.0` from a scratch directory. Update `edda/workflow.md`'s History section to say `main` is final and protected, in a follow-up PR, which also proves the rulesets.
+- Check that `npx flo-ai@latest --version` prints `0.1.0` from a scratch directory.
