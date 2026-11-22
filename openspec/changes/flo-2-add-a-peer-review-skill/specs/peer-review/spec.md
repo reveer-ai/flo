@@ -47,16 +47,16 @@ The skill SHALL have the implementing agent start a review subagent with a fresh
 
 ### Requirement: The reviewer sees the goal and the work, not the reasoning
 
-The reviewer SHALL be given what the work was meant to do (the user's request, and the issue, spec or design where they exist), where the changes are, and how the project checks its work. It SHALL NOT be given the implementer's reasoning or its case for why the work is right.
+The reviewer SHALL be given what the work was meant to do in its original form (the user's request, and the issue, spec or design themselves where they exist, not a summary of them), where the changes are, and how the project checks its work. It SHALL NOT be given the implementer's reasoning or its case for why the work is right.
 
 #### Scenario: Briefing the reviewer
 
 - **WHEN** the implementer briefs the reviewer
-- **THEN** the brief holds the goal, the location of the changes and the project's checks, and no argument for the implementation
+- **THEN** the reviewer gets the request and any issue, design and specs as they are written, the location of the changes and the project's checks, and no argument for the implementation
 
 ### Requirement: The reviewer checks and reports without changing anything
 
-The reviewer SHALL judge whether the work does what it was meant to, simply. It SHALL also judge whether it holds up when things fail, breaks nothing that worked, has tests that would fail without it, and leaves docs and records true. It SHALL run the project's checks, reproduce each finding before reporting it, and change no files.
+The reviewer SHALL judge whether the work does what it was meant to, simply. It SHALL also judge whether it holds up when things fail, breaks nothing that worked, and has tests that would fail without it. It SHALL run the project's checks, reproduce each finding before reporting it, and change no files.
 
 #### Scenario: A finding is reported
 
@@ -80,7 +80,7 @@ The reviewer SHALL judge whether the work does what it was meant to, simply. It 
 
 ### Requirement: The implementer applies what holds up
 
-The implementing agent SHALL check each finding and fix the ones that hold up. It MAY decline a finding only when it can show the finding is wrong, and SHALL give its reason in the handoff. A finding that would change something the user decided SHALL go to the user as a question, unapplied.
+The implementing agent SHALL check each finding and fix the ones that hold up. It MAY decline a finding only when it can show the finding is wrong, and SHALL mention it briefly in the handoff. A finding that would change something the user decided SHALL go to the user as a question, unapplied.
 
 #### Scenario: A valid finding
 
@@ -90,7 +90,7 @@ The implementing agent SHALL check each finding and fix the ones that hold up. I
 #### Scenario: A wrong finding
 
 - **WHEN** the implementer can show a finding is wrong
-- **THEN** it leaves it unfixed and the handoff says why
+- **THEN** it leaves it unfixed, and the handoff mentions it in a few words
 
 #### Scenario: A finding against the user's decision
 
@@ -132,7 +132,7 @@ If the agent can't start a reviewer that meets the bar, it SHALL NOT skip the re
 
 ### Requirement: The handoff follows the project's norms
 
-The agent SHALL look for how the project wants work handed over (its agent instructions, project record and contributing guide) and hand off that way. If it finds none, it SHALL end with a short report: what was done, what the review found and how each finding was resolved, what was and wasn't verified, and what needs the user's decision.
+If the project's instructions say how to hand off work, the agent SHALL hand off that way. If they don't, it SHALL end with a report as short as it can be that says what was done, what was and wasn't verified, and what needs the user's decision, with one line on what the review caught and anything declined.
 
 #### Scenario: The project has handoff norms
 
