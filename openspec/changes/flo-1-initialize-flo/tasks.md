@@ -5,7 +5,7 @@
 - [x] 1.1 Reset `main` to one empty commit and carry `LICENSE` on this branch, and verify `git diff 92d8e30 -- LICENSE` is empty
 - [x] 1.2 Run `npx edda-ai init` and write `edda/` (index, vision, workflow), and verify `edda/index.md` links every record file
 - [x] 1.3 Initialize OpenSpec 2.1.1 with `--tools codex,claude --scope project` and the approval gates in `openspec/config.yaml`, and verify `.claude/skills/*` are symlinks into `.agents/skills/` and `openspec instructions proposal --change flo-1-initialize-flo` returns the gates as rules
-- [ ] 1.4 Run `npx clare-ai init`, and verify its skill is in `.agents/skills/` and `.claude/skills/` links to it, with no OpenSpec file changed
+- [x] 1.4 Run `npx clare-ai init`, and verify its skill is in `.agents/skills/` and `.claude/skills/` links to it, with no OpenSpec file changed
 
 ## 2. Package and CLI
 
