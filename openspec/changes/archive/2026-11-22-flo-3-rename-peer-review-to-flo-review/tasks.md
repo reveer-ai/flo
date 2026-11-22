@@ -12,4 +12,4 @@
 
 ## Workflow follow-up
 
-- Once the owner approves the PR, archive the change (`openspec archive flo-3-rename-peer-review-to-flo-review`), delete the emptied `openspec/specs/peer-review/`, commit and push, then squash-merge on the owner's word. The merge releases `0.2.1`.
+- Once the owner approves the PR, archive the change (`openspec archive flo-3-rename-peer-review-to-flo-review`, which retires the `peer-review` spec), commit and push, then squash-merge on the owner's word. The merge releases `0.2.1`.

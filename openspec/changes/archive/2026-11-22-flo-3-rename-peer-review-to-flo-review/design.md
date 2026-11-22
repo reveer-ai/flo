@@ -19,7 +19,7 @@ flo `0.2.0` ships one skill, `peer-review`, and `flo init` installs every folder
 
 **The prefix is a requirement in the `init` spec, checked by a test.** A test that every folder in `skills/` and its `name` start with `flo-` catches a future skill that forgets it. *Alternative:* have `flo init` add the prefix when it installs. Rejected: the name in the package and the installed name would differ, and the `name` frontmatter would need rewriting.
 
-**The `peer-review` spec is removed and `flo-review` added, rather than edited in place.** OpenSpec names a capability by its folder, so a rename is a remove and an add. After archiving, the empty `openspec/specs/peer-review/` is deleted.
+**The `peer-review` spec is removed and `flo-review` added, rather than edited in place.** OpenSpec names a capability by its folder, so a rename is a remove and an add. The change sets `retire_capabilities: true` in `.openspec.yaml`, so archiving deletes `openspec/specs/peer-review/` once its last requirement is removed.
 
 **Patch release, `0.2.1`.** It fixes a naming mistake in `0.2.0`, and no one depends on the old name.
 
