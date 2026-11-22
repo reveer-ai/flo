@@ -8,11 +8,13 @@ All work is tracked in Linear, team **flo** (key `FLO`, under the reveer workspa
 
 ## Changes: OpenSpec
 
-Every tangible change is an OpenSpec change in `openspec/` (proposal → design → specs → tasks), and its specs are archived into `openspec/specs/` once it lands. The OpenSpec skills live in `.agents/skills/` (the assistant-agnostic location); `openspec/config.yaml` carries the rules below for OpenSpec's own workflows. If the gates change, update both.
+Every tangible change is an OpenSpec change in `openspec/` (proposal → design → specs → tasks), and its specs are archived into `openspec/specs/` once it lands. `openspec/config.yaml` carries the rules below for OpenSpec's own workflows. If the gates change, update both.
+
+OpenSpec is set up for both Codex and Claude Code (owner, 2026-11-21), with `openspec init --tools codex,claude --scope project`. Its skills live once in `.agents/skills/`, and `.claude/skills/` holds symlinks to them, which OpenSpec makes itself.
 
 Stay on the latest OpenSpec release (owner, 2026-11-21). Before each change, check `npm view @fission-ai/openspec version` against `openspec --version`, and upgrade with `npm install -g @fission-ai/openspec@latest`. The repo was set up with 2.1.1, the latest at the time (released 2026-11-19). After any upgrade, run `openspec update` to regenerate `.agents/skills/` and commit the result. The generated files don't record the CLI version, so check it with `openspec --version`.
 
-In 2.1.1, `openspec init` puts skills in `~/.agents/skills/` (machine-wide) unless told otherwise. This repo was initialized with `openspec init --tools agents --scope project`.
+In 2.1.1, `openspec init` puts skills in `~/.agents/skills/` (machine-wide) unless it's given `--scope project`.
 
 ## Approval gates
 
@@ -44,7 +46,7 @@ Adopted from clare; the pipeline itself arrives with FLO-1.
 - `version` in `package.json` is the only source of flo's version. A PR that should ship bumps it itself, following semver while flo is on `0.x`: a minor bump for new behavior, a patch bump for fixes. A PR that doesn't bump it, such as a record-only change, releases nothing.
 - On every push to `main`, the release workflow runs the tests, publishes the version to npm if it isn't there yet, tags the commit `v<version>`, and creates a GitHub release. On PRs it only runs the tests and `npm pack --dry-run`. Nothing commits to `main` on a release.
 - Publishing uses npm trusted publishing, so no npm token exists. The trusted publisher allows direct `npm publish`, not npm's default staged publishing, so a release doesn't wait for the owner's 2FA. Configuring it on npmjs.com is the owner's step.
-- A new trusted publisher shows "Pending validation" until its first publish and expires two days after it's created if nothing publishes (`../edda/edda/facts.md`). So it's set up right before the first publish.
+- npm lets a trusted publisher be set up only for a package that already exists (npm docs, read 2026-11-21). A new one shows "Pending validation" until its first publish and expires two days after it's created if nothing publishes (`../edda/edda/facts.md`). So the first version of a new package is a bootstrap published by hand, and the trusted publisher is set up right before the workflow's first publish.
 - A published version can't be taken back. To roll back, deprecate it (`npm deprecate`) and release a fix.
 
 ## Where the roadmap lives

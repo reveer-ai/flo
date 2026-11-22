@@ -19,6 +19,8 @@ flo is the owner's third tool for agentic work, and its own package, separate fr
 
 An npm package, **`flo-ai`**, whose command is **`flo`**. The npm name `flo` belongs to an unrelated package, so `npx flo` won't run flo; it has to be `npx flo-ai`. Until skills exist, the command does only `--help` and `--version` (FLO-1).
 
+When flo ships skills, `flo init` copies them into the project's `.agents/skills/`, and if `.claude/skills/` exists, it symlinks them there to the `.agents/skills/` copies (owner, 2026-11-21).
+
 ## Prior art for scoping
 
 Each of the owner's projects has worked out its own version of this workflow by hand. Read these when flo is scoped:
