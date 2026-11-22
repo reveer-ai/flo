@@ -1,0 +1,28 @@
+{
+  "name": "flo-ai",
+  "version": "0.1.0",
+  "description": "The entire workflow for developing agentic software. Early: it does nothing yet beyond --version.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "flo": "bin/flo.js"
+  },
+  "files": [
+    "bin/",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reveer-ai/flo.git"
+  },
+  "homepage": "https://github.com/reveer-ai/flo#readme",
+  "bugs": {
+    "url": "https://github.com/reveer-ai/flo/issues"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}

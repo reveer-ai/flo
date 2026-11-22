@@ -9,9 +9,9 @@
 
 ## 2. Package and CLI
 
-- [ ] 2.1 Add `package.json` (`flo-ai` at `0.1.0`, `bin` `flo` → `bin/flo.js`, ESM, `engines.node >= 22`, no dependencies, `files` `bin/` and `README.md`, MIT, `repository.url` `git+https://github.com/reveer-ai/flo.git`, `test` script `node --test`), and verify `npm pack --dry-run` lists only `package.json`, `LICENSE`, `README.md` and `bin/flo.js`
-- [ ] 2.2 Write `bin/flo.js` and `test/cli.test.js` covering each `cli` spec scenario (no arguments, `--help`, `--version`, unknown word, known flag with extras, nothing written), and verify `npm test` passes
-- [ ] 2.3 Write `README.md` (what flo is, that it does nothing yet beyond `--version`, `npx flo-ai`, and the `flo-ai` vs `flo` note), and verify every command it shows runs as written from a scratch directory
+- [x] 2.1 Add `package.json` (`flo-ai` at `0.1.0`, `bin` `flo` → `bin/flo.js`, ESM, `engines.node >= 22`, no dependencies, `files` `bin/` and `README.md`, MIT, `repository.url` `git+https://github.com/reveer-ai/flo.git`, `test` script `node --test`), and verify `npm pack --dry-run` lists only `package.json`, `LICENSE`, `README.md` and `bin/flo.js`
+- [x] 2.2 Write `bin/flo.js` and `test/cli.test.js` covering each `cli` spec scenario (no arguments, `--help`, `--version`, unknown word, known flag with extras, nothing written), and verify `npm test` passes
+- [x] 2.3 Write `README.md` (what flo is, that it does nothing yet beyond `--version`, `npx flo-ai`, and the `flo-ai` vs `flo` note), and verify every command it shows runs as written from a scratch directory
 
 ## 3. Releases
 
